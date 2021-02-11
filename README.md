@@ -35,6 +35,9 @@ The commit message to be used in the output repository. Optional and defaults to
 
 The string `ORIGIN_COMMIT` is replaced by `$REPOSITORY_URL@commit`.
 
+### `commit-tag` (argument) [optional]
+Tags a commit.
+
 ### `API_TOKEN_GITHUB` (environment)
 E.g.:
   `API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}`
