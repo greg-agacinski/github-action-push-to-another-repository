@@ -53,7 +53,7 @@ echo "Pushing git commit"
 git push origin --set-upstream "$TARGET_BRANCH"
 
 # tag the commit
-if [ -z "$COMMIT_TAG" ]
+if [ ! -z "$COMMIT_TAG" ]
 then
   echo "Tagging the commit"
   git tag "$COMMIT_TAG"
