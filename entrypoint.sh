@@ -29,7 +29,10 @@ ls -la "$CLONE_DIR"
 
 TARGET_DIR=$(mktemp -d)
 mv "$CLONE_DIR/.git" "$TARGET_DIR"
-mv "$CLONE_DIR/.github" "$TARGET_DIR"
+# move .github related data if it exists
+if [ -d "$CLONE_DIR/.github" ]; then
+  mv "$CLONE_DIR/.github" "$TARGET_DIR"
+fi
 
 echo "Copying contents to git repo"
 cp -ra "$SOURCE_DIRECTORY"/. "$TARGET_DIR"
