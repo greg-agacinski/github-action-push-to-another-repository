@@ -13,6 +13,9 @@ inputs:
   user-email:
     description: 'Email for the git commit'
     required: true
+  ssh-key-file:
+    description: 'SSH key file'
+    required: true
   destination-repository-username:
     description: '[Optional] Username/organization for the destination repository'
     required: false
@@ -37,6 +40,7 @@ runs:
     - ${{ inputs.destination-github-username }}
     - ${{ inputs.destination-repository-name }}
     - ${{ inputs.user-email }}
+    - ${{ inputs.ssh-key-file }}
     - ${{ inputs.destination-repository-username }}
     - ${{ inputs.target-branch }}
     - ${{ inputs.commit-message }}

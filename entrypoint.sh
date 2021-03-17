@@ -8,10 +8,11 @@ SOURCE_DIRECTORY="$1"
 DESTINATION_GITHUB_USERNAME="$2"
 DESTINATION_REPOSITORY_NAME="$3"
 USER_EMAIL="$4"
-DESTINATION_REPOSITORY_USERNAME="$5"
-TARGET_BRANCH="$6"
-COMMIT_MESSAGE="$7"
-COMMIT_TAG="$8"
+SSH_KEY_FILE="$5"
+DESTINATION_REPOSITORY_USERNAME="$6"
+TARGET_BRANCH="$7"
+COMMIT_MESSAGE="$8"
+COMMIT_TAG="$9"
 
 if [ -z "$DESTINATION_REPOSITORY_USERNAME" ]
 then
@@ -22,9 +23,11 @@ CLONE_DIR=$(mktemp -d)
 
 echo "Cloning destination git repository"
 # Setup git
+chmod 600 "$SSH_KEY_FILE"
+git config --global core.sshCommand "ssh -i $SSH_KEY_FILE"
 git config --global user.email "$USER_EMAIL"
 git config --global user.name "$DESTINATION_GITHUB_USERNAME"
-git clone --single-branch --branch "$TARGET_BRANCH" "https://$API_TOKEN_GITHUB@github.com/$DESTINATION_REPOSITORY_USERNAME/$DESTINATION_REPOSITORY_NAME.git" "$CLONE_DIR"
+git clone --single-branch --branch "$TARGET_BRANCH" "git@github.com:$DESTINATION_REPOSITORY_USERNAME/$DESTINATION_REPOSITORY_NAME.git" "$CLONE_DIR"
 ls -la "$CLONE_DIR"
 
 TARGET_DIR=$(mktemp -d)
