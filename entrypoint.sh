@@ -8,7 +8,7 @@ SOURCE_DIRECTORY="$1"
 DESTINATION_GITHUB_USERNAME="$2"
 DESTINATION_REPOSITORY_NAME="$3"
 USER_EMAIL="$4"
-SSH_KEY_FILE="$5"
+SSH_KEY="$5"
 DESTINATION_REPOSITORY_USERNAME="$6"
 TARGET_BRANCH="$7"
 COMMIT_MESSAGE="$8"
@@ -21,10 +21,15 @@ fi
 
 CLONE_DIR=$(mktemp -d)
 
+# Set SSH key
+echo "Setting SSH deploymeny key"
+touch git.key
+echo "$SSH_KEY" > git.key
+chmod 600 git.key
+
 echo "Cloning destination git repository"
 # Setup git
-chmod 600 "$SSH_KEY_FILE"
-git config --global core.sshCommand "ssh -i $SSH_KEY_FILE"
+git config --global core.sshCommand "ssh -i git.key"
 git config --global user.email "$USER_EMAIL"
 git config --global user.name "$DESTINATION_GITHUB_USERNAME"
 git clone --single-branch --branch "$TARGET_BRANCH" "git@github.com:$DESTINATION_REPOSITORY_USERNAME/$DESTINATION_REPOSITORY_NAME.git" "$CLONE_DIR"
