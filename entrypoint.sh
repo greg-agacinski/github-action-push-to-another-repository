@@ -8,11 +8,10 @@ SOURCE_DIRECTORY="$1"
 DESTINATION_GITHUB_USERNAME="$2"
 DESTINATION_REPOSITORY_NAME="$3"
 USER_EMAIL="$4"
-SSH_KEY="$5"
-DESTINATION_REPOSITORY_USERNAME="$6"
-TARGET_BRANCH="$7"
-COMMIT_MESSAGE="$8"
-COMMIT_TAG="$9"
+DESTINATION_REPOSITORY_USERNAME="$5"
+TARGET_BRANCH="$6"
+COMMIT_MESSAGE="$7"
+COMMIT_TAG="$8"
 
 if [ -z "$DESTINATION_REPOSITORY_USERNAME" ]
 then
@@ -24,7 +23,7 @@ CLONE_DIR=$(mktemp -d)
 # Set SSH key
 echo "Setting SSH deploymeny key"
 touch git.key
-echo "$SSH_KEY" > git.key
+echo "$SSH_DEPLOYMENT_KEY" > git.key
 chmod 600 git.key
 
 echo "Cloning destination git repository"
